@@ -36,6 +36,10 @@
     background-color: #F44336; /* Red for inactive */
   }
   
+  .indicator-box.no-data {
+    background-color: #808080; /* Grey for no data */
+  }
+  
   /* Headings */
   h2 {
     font-size: 1.5em;

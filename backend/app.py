@@ -1,36 +1,42 @@
 from flask import Flask, jsonify, send_from_directory
-from flask_cors import CORS
+import os
 
-app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
-CORS(app) #enable CORS
+app = Flask(__name__, static_folder='build', static_url_path='/')
 
-# Define route for API
-@app.route('/api')
-def api():
-    return jsonify({'message': 'Hello from the API!'})
+# Serve the React frontend
 
-# Define route for default path
 @app.route('/')
-def serve_react():
-    return send_from_directory(app.static_folder, 'index.html')
+@app.route('/<path:path>')
+def serve_react(path=None):
+    if path is None or not os.path.exists(os.path.join(app.static_folder, path)):
+        path = 'index.html'
+    return send_from_directory(app.static_folder, path)
 
-# Define a route for the Status data
+# Define your API route
 @app.route('/api/status', methods=['GET'])
 def get_status():
-    # Example data structure for status; replace with actual values as needed
     status_data = {
-        "SV1": True,       # Main Valve input from PLC
-        "SV2": False,      # Upper Seat input from PLC
-        "SV3": True,       # Lower Seat input from PLC
-        "EN": True,        # Main Valve feedback
-        "USL": False,      # Upper Seat feedback
-        "LSP": True        # Lower Seat feedback
+        "SV1": True,
+        "SV2": False,
+        "SV3": True,
+        "EN": True,
+        "USL": False,
+        "LSP": True
     }
     return jsonify(status_data)
 
+# Add valve control API route
+@app.route('/api/control', methods=['POST'])
+def control():
+    data = request.get_json()
+    output = data.get('output')
+    value = data.get('value')
+    
+    # Here, implement the logic to send this signal to your PLC or control output.
+    print(f"Received control command: {output} -> {'ON' if value else 'OFF'}")
 
+    # Respond with success
+    return jsonify({"status": "success", "output": output, "value": value}), 200
 
-##### End of app.py #####
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
-
