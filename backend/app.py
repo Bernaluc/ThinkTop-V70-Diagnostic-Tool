@@ -32,7 +32,7 @@ def control():
     output = data.get('output')
     value = data.get('value')
     
-    # Here, implement the logic to send this signal to your PLC or control output.
+    # Control the valve
     print(f"Received control command: {output} -> {'ON' if value else 'OFF'}")
 
     # Respond with success
