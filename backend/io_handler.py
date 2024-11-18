@@ -54,7 +54,7 @@ def main():
         while True:
             print(f'inputs ----------------')
             read_inputs()
-            time.sleep(.2)
+            time.sleep(2)
             
             # Read outputs from frontend
             state = read_io_state()

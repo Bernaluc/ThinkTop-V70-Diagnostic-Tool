@@ -6,6 +6,8 @@ function Status() {
   const [loading, setLoading] = useState(true);        // State to track loading status
 
   useEffect(() => {
+    let intervalId; // Variable to store interval ID for cleanup
+
     const fetchStatus = async () => {
       try {
         const response = await fetch("http://10.20.16.195:5000/api/status");
@@ -18,8 +20,15 @@ function Status() {
         setLoading(false);
       }
     };
-  
+
+    // Fetch data initially
     fetchStatus();
+
+    // Set up polling to fetch data every 1s
+    intervalId = setInterval(fetchStatus, 10);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   if (loading) return <p>Loading...</p>; // Show loading text while fetching
