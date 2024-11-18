@@ -24,11 +24,13 @@ def get_status():
     print('Get Status..........')
     # Example data structure for status; replace with actual values as needed
     status = read_io_state()
-    print(status)
     status_data = {
         "SV1": status[0],       # Main Valve input from PLC
         "SV2": status[1],      # Upper Seat input from PLC
-        "SV3": status[2]       # Lower Seat input from PLC
+        "SV3": status[2],       # Lower Seat input from PLC
+        "EN":  status[3],
+        "USL": status[4],
+        "LSP": status[5]
     }
     return jsonify(status_data)
 
