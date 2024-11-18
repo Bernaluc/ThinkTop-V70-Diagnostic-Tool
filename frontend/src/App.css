@@ -40,3 +40,43 @@
 h3 {
   margin-top: 20px;
 }
+
+
+.nav {
+  background-color: #f0f0f0;
+  padding: 10px;
+}
+
+.nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+}
+
+.nav li {
+  display: inline;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.nav a:hover {
+  color: #007bff;
+}
+
+/* App.css */
+
+/* Ensure the main content shifts when the sidebar is open */
+.ml-64 {
+  margin-left: 16rem;
+}
+
+/* Transition for smooth shifting */
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
