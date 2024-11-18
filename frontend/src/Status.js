@@ -8,7 +8,7 @@ function Status() {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const response = await fetch("http://10.20.16.200:5000/api/status");
+        const response = await fetch("http://10.20.16.195:5000/api/status");
         const data = await response.json();
         console.log("Fetched data:", data); // Log the data to verify
         setStatusData(data);
