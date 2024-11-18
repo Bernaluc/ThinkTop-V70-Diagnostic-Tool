@@ -1,0 +1,53 @@
+/* Ensure Status container is centered and responsive */
+.Status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    min-height: 10vh; /* Full viewport height */
+    box-sizing: border-box;
+  }
+  
+  /* Styling for indicator container to center items */
+  .indicator-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px; /* Limit max width for better readability on phones */
+  }
+  
+  .indicator-box {
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .indicator-box.active {
+    background-color: #4CAF50; /* Green for active */
+  }
+  
+  .indicator-box.inactive {
+    background-color: #F44336; /* Red for inactive */
+  }
+  
+  .indicator-box.no-data {
+    background-color: #808080; /* Grey for no data */
+  }
+  
+  /* Headings */
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  h3 {
+    font-size: 1.2em;
+    margin: 15px 0;
+  }
+  
