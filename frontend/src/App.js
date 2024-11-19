@@ -16,7 +16,6 @@ function App() {
             <Route path="/" element={<Status />} />
             <Route path="/manual-control" element={<ManualControl />} />
             <Route Path="/troubleshooting" element={<Troubleshooting />} /> 
-            {/* Add more routes as needed */}
           </Routes>
         </div>
       </div>

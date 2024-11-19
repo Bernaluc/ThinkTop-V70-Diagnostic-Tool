@@ -12,6 +12,7 @@ print(f"I/O Handler Running....")
 IO_STATE_FILE = "io_state.json" # Specify file being used for IO
 I2C_CHANNEL = 1 # pi I2C channel
 DEVICE_ADDRESS = 0x27 # Relay board address
+MASK = (1 << 8) -1
 
 #IO variable Initialization
 IO_Inputs = [0, 0, 0, 0, 0, 0] # 3 PLC inputs, 3 Valve Inputs
@@ -71,7 +72,7 @@ def main():
         while True:
             print(f'inputs ----------------')
             read_inputs()
-            time.sleep(1)
+            time.sleep(.1)
             
             # Read outputs from frontend
             state = read_io_state()
@@ -79,18 +80,34 @@ def main():
             
             write_io_state(state)
             
-            relayState = 0b11111111  # All relays off initially (all bits set to 1)
+            relayState = 0b00000000 # All relays off initially (all bits set to 1)
+            relayOutputs = state["outputs"]
+            
+            if relayOutputs[0]:
+                relayState |= 1
+            if relayOutputs[1]:
+                relayState |= 2
+            if relayOutputs[2]:
+                relayState |= 4
+            if relayOutputs[3]:
+                relayState |= 8
+                
+            relayOutputs = ~relayState & MASK
+            set_relays(relayOutputs)
 
-            # Turn on each relay sequentially (only one bit set to 0 at a time)
-            for i in range(8):
-                relayState = ~(1 << i) & 0b11111111  # Set the i-th bit to 0, ensuring all others are 1
-                set_relays(relayState)
-                time.sleep(1)
+            # # Turn on each relay sequentially (only one bit set to 0 at a time)
+            # for i in range(8):
+            #     relayState = ~(1 << i) & 0b11111111  # Set the i-th bit to 0, ensuring all others are 1
+            #     set_relays(relayState)
+            #     time.sleep(1)
 
-            # Turn off all relays (set all bits back to 1)
-            relayState = 0b11111111
-            set_relays(relayState)
-
+            # # Turn off all relays (set all bits back to 1)
+            # relayState = 0b11111111
+            # set_relays(relayState)
+            # IO_Outputs = read_io_state()["outputs"]
+            # print(IO_Outputs)
+            # time.sleep(1)
+            
             
             
     except KeyboardInterrupt:

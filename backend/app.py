@@ -39,11 +39,12 @@ def read_io_state():
     try:
         with open(IO_STATE_FILE, "r") as file:
             state = json.load(file)
-            # Assuming state has keys "inputs" and "outputs"
-            return state.get("inputs", [0, 0, 0])
+            # Return inputs, default to zeros if not
+            return state.get("inputs", [0, 0, 0, 0, 0, 0]) 
+        
     except (FileNotFoundError, json.JSONDecodeError):
         # Return default inputs in case of errors
-        return [0, 0, 0]
+        return [0, 0, 0, 0, 0, 0]
 
 
 ##### End of app.py #####
