@@ -15,7 +15,7 @@ DEVICE_ADDRESS = 0x27 # Relay board address
 MASK = (1 << 8) -1
 
 #IO variable Initialization
-IO_Inputs = [0, 0, 0, 0, 0, 0] # 3 PLC inputs, 3 Valve Inputs
+IO_Inputs = [0, 0, 0, 0, 0, 0, 0, 0] # 3 PLC inputs, 4 Valve Inputs + prox (future)
 IO_Outputs = [0, 0, 0, 0, 0, 0, 0, 0] # 8 Channel Relay
 relayState = 0b00000000 # LSB is relay 8, MSB is relay 1
 
@@ -25,7 +25,7 @@ relayState = 0b00000000 # LSB is relay 8, MSB is relay 1
 
 GPIO.setmode(GPIO.BCM)
 
-inputChanList = [16, 20, 21, 13, 19, 26]
+inputChanList = [25, 5, 6, 16, 21, 13, 26, 24]
 
 GPIO.setup(inputChanList, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # Initialize to inputs with pulldown resistor
 

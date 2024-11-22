@@ -10,7 +10,7 @@ function Status() {
 
     const fetchStatus = async () => {
       try {
-        const response = await fetch("http://10.20.16.163:5000/api/status");
+        const response = await fetch("http://10.20.16.221:5000/api/status");
         const data = await response.json();
         console.log("Fetched data:", data); // Log the data to verify
         setStatusData(data);
