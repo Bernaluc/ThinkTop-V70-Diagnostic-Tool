@@ -65,7 +65,7 @@ def set_relays(state):
     except Exception as e:
         print(f"Error setting relays: {e}")
         
-# Run main function on inf loop until keyboard interrupt (ctrl-c0.
+# Run main function on inf loop until keyboard interrupt (ctrl-c).
 # )
 def main():
     try:
@@ -83,14 +83,16 @@ def main():
             relayState = 0b00000000 # All relays off initially (all bits set to 1)
             relayOutputs = state["outputs"]
             
-            if relayOutputs[0]:
+            if relayOutputs[3]: # Enable manual mode on each valve input/tester output
                 relayState |= 1
-            if relayOutputs[1]:
                 relayState |= 2
-            if relayOutputs[2]:
                 relayState |= 4
-            if relayOutputs[3]:
+            if relayOutputs[0]: # Lower Seat Push Manual Control
                 relayState |= 8
+            if relayOutputs[1]: # Upper Seat Push Manual Control
+                relayState |= 16
+            if relayOutputs[2]: # Main Manual Control
+                relayState |= 32
                 
             relayOutputs = ~relayState & MASK
             set_relays(relayOutputs)

@@ -25,7 +25,7 @@ function Status() {
     fetchStatus();
 
     // Set up polling to fetch data every 1s
-    intervalId = setInterval(fetchStatus, 10);
+    intervalId = setInterval(fetchStatus, 1);
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
@@ -58,14 +58,17 @@ function Status() {
       <section>
         <h3>Valve Feedback</h3>
         <div className="indicator-container">
-          <div className={`indicator-box ${statusData.EN ? "active" : "inactive"}`}>
-            EN (Main Valve): {statusData.EN ? "Active" : "Inactive"}
-          </div>
-          <div className={`indicator-box ${statusData.USL ? "active" : "inactive"}`}>
-            USL (Upper Seat): {statusData.USL ? "Active" : "Inactive"}
+          <div className={`indicator-box ${statusData.STS ? "active" : "inactive"}`}>
+            EN (Status): {statusData.STS ? "Active" : "Inactive"}
           </div>
           <div className={`indicator-box ${statusData.LSP ? "active" : "inactive"}`}>
-            LSP (Lower Seat): {statusData.LSP ? "Active" : "Inactive"}
+            USL (Lower Seat): {statusData.LSP ? "Active" : "Inactive"}
+          </div>
+          <div className={`indicator-box ${statusData.EN ? "active" : "inactive"}`}>
+            LSP (Main Seat): {statusData.EN ? "Active" : "Inactive"}
+          </div>
+          <div className={`indicator-box ${statusData.USL ? "active" : "inactive"}`}>
+            LSP (Upper Seat): {statusData.USL ? "Active" : "Inactive"}
           </div>
         </div>
       </section>

@@ -25,12 +25,14 @@ def get_status():
     # Example data structure for status; replace with actual values as needed
     status = read_io_state()
     status_data = {
-        "SV1": status[0],       # Main Valve input from PLC
-        "SV2": status[1],      # Upper Seat input from PLC
-        "SV3": status[2],       # Lower Seat input from PLC
-        "EN":  status[3],
-        "USL": status[4],
-        "LSP": status[5]
+        "STS": status[0],
+        "EN": status[1],       # Main Valve input from PLC
+        "USL": status[2],      # Upper Seat input from PLC
+        "LSP": status[3],       # Lower Seat input from PLC
+        "SV1":  status[4],
+        "SV2": status[5],
+        "SV3": status[6],
+        "PROX": status[7]
     }
     return jsonify(status_data)
 
@@ -40,11 +42,11 @@ def read_io_state():
         with open(IO_STATE_FILE, "r") as file:
             state = json.load(file)
             # Return inputs, default to zeros if not
-            return state.get("inputs", [0, 0, 0, 0, 0, 0]) 
+            return state.get("inputs", [0, 0, 0, 0, 0, 0, 0, 0]) 
         
     except (FileNotFoundError, json.JSONDecodeError):
         # Return default inputs in case of errors
-        return [0, 0, 0, 0, 0, 0]
+        return [0, 0, 0, 0, 0, 0, 0, 0]
 
 
 ##### End of app.py #####
